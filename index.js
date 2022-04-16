@@ -1,7 +1,7 @@
 const server = require('./server');
 const {
   server: { port },
-} = require('./config');
+} = require('./src/config');
 
 const start = async () => {
   await server.listen(port);
