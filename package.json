@@ -1,0 +1,45 @@
+{
+  "name": "koa-app",
+  "version": "1.0.0",
+  "description": "node.js app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "NODE_ENV=test jest'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hvedinich/koa-app.git"
+  },
+  "author": "Hvedinich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hvedinich/koa-app/issues"
+  },
+  "homepage": "https://github.com/hvedinich/koa-app#readme",
+  "dependencies": {
+    "@koa/cors": "3.3.0",
+    "dotenv": "16.0.0",
+    "joi": "17.6.0",
+    "koa": "2.13.4",
+    "koa-bodyparser": "4.3.0",
+    "koa-compress": "5.1.0",
+    "koa-helmet": "6.1.0",
+    "koa-logger": "3.2.1",
+    "koa-router": "10.1.1",
+    "uuid": "8.3.2"
+  },
+  "devDependencies": {
+    "eslint": "8.13.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-config-standard": "16.0.3",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-jest": "26.1.4",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-promise": "6.0.0",
+    "husky": "7.0.4",
+    "prettier": "2.6.2"
+  }
+}
