@@ -1,5 +1,5 @@
 const joi = require('joi');
-const { ValidationError } = require('../../utils/errors');
+const { ServerError } = require('../../utils/errors');
 
 const configSchema = joi
   .object({
@@ -12,7 +12,7 @@ const configSchema = joi
 const validateConfigInput = input => {
   const { error } = configSchema.validate(input);
   if (error) {
-    throw new ValidationError(`Validation error: ${error.message}`);
+    throw new ServerError(`Validation error: ${error.message}`, 400);
   }
 };
 

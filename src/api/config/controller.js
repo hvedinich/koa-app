@@ -1,10 +1,9 @@
 const model = require('./model');
 const { validateConfigInput } = require('./validation');
-
-const DEFAULT = 'DEFAULT';
+const { DEFAULT_CONFIG } = require('./constants');
 
 const getOne = async ctx => {
-  const config = await model.find({ id: DEFAULT });
+  const config = await model.find({ id: DEFAULT_CONFIG });
 
   ctx.status = 200;
   ctx.body = config;
@@ -14,7 +13,7 @@ const update = async ctx => {
   const { openFrom, openTo } = ctx.request.body;
 
   const newConfig = {
-    id: DEFAULT,
+    id: DEFAULT_CONFIG,
     openFrom,
     openTo,
   };

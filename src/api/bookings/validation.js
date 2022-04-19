@@ -1,5 +1,5 @@
 const joi = require('joi');
-const { ValidationError } = require('../../utils/errors');
+const { ServerError } = require('../../utils/errors');
 
 const createBookingSchema = joi
   .object({
@@ -14,10 +14,28 @@ const createBookingSchema = joi
 const validateCreateBookingInput = input => {
   const { error } = createBookingSchema.validate(input);
   if (error) {
-    throw new ValidationError(`Validation error: ${error.message}`);
+    throw new ServerError(`Validation error: ${error.message}`, 400);
+  }
+};
+
+const updateBookingSchema = joi
+  .object({
+    id: joi.string().required(),
+    tableId: joi.string(),
+    timeSlot: joi.number(),
+    guestsCount: joi.number(),
+    date: joi.number(),
+  })
+  .required();
+
+const validateUpdateBookingInput = input => {
+  const { error } = updateBookingSchema.validate(input);
+  if (error) {
+    throw new ServerError(`Validation error: ${error.message}`, 400);
   }
 };
 
 module.exports = {
   validateCreateBookingInput,
+  validateUpdateBookingInput,
 };
