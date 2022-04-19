@@ -1,5 +1,6 @@
 const schema = require('./schema');
 
+const read = filter => schema.findOne(filter).lean();
 const create = user => schema.create(user);
 const getAll = ({ date }) =>
   schema
@@ -15,5 +16,7 @@ const getAll = ({ date }) =>
       },
     ])
     .exec();
+const findOneAndUpdate = config => schema.findOneAndUpdate({ id: config.id }, config, { new: true }).lean();
+const deleteOne = id => schema.deleteOne({ id });
 
-module.exports = { getAll, create };
+module.exports = { getAll, create, findOneAndUpdate, deleteOne, read };

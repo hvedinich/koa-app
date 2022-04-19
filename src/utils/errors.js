@@ -1,16 +1,17 @@
-class ValidationError extends Error {
-  constructor(message) {
+class ServerError extends Error {
+  constructor(message, code) {
     super(message);
 
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, ValidationError);
+      Error.captureStackTrace(this, ServerError);
     }
 
     this.message = message;
-    this.status = 400;
+    this.status = code || 500;
+    this.expose = true;
   }
 }
 
 module.exports = {
-  ValidationError,
+  ServerError,
 };
