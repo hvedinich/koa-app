@@ -14,6 +14,12 @@ Rename the `.env.example` file to `.env`
 
 `npm start`
 
+### Tests
+
+Command to run tests
+
+`npm start`
+
 ### endpoints
 
 `http://localhost:3300/api/bookings` GET, POST

@@ -61,14 +61,15 @@ const createOne = async ctx => {
   const { tableNumber } = ctx.request.body;
 
   const id = uuidv4();
-  const newUser = {
+  const newTable = {
     id,
     tableNumber,
   };
+  validateTableInput(newTable);
 
-  let createdUser;
+  let createdTable;
   try {
-    createdUser = await model.create(newUser);
+    createdTable = await model.create(newTable);
   } catch (err) {
     if (err.code === 11000) {
       throw new ServerError(`Table with tableNumber == ${tableNumber} already exists`, 404);
@@ -77,7 +78,7 @@ const createOne = async ctx => {
   }
 
   ctx.status = 201;
-  ctx.body = createdUser;
+  ctx.body = createdTable;
 };
 
 const updateOne = async ctx => {
