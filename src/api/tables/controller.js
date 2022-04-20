@@ -35,8 +35,8 @@ const fillAvailableSlots = (tables, allPossibleSlots) =>
   }));
 
 const getOne = async ctx => {
-  const { tableId } = ctx.params;
-  const user = await model.find(tableId);
+  const { id } = ctx.params;
+  const user = await model.find(id);
 
   ctx.status = 200;
   ctx.body = user;
@@ -82,13 +82,13 @@ const createOne = async ctx => {
 
 const updateOne = async ctx => {
   const { id } = ctx.params;
+  const newTable = { id, ...ctx.request.body };
+  validateTableInput(newTable);
+
   const table = await model.read({ id });
   if (!table) {
     throw new ServerError('Table no found', 404);
   }
-
-  const newTable = { id, ...ctx.request.body };
-  validateTableInput(newTable);
 
   const updatedTable = await model.findOneAndUpdate(newTable);
 
@@ -98,7 +98,11 @@ const updateOne = async ctx => {
 
 const deleteOne = async ctx => {
   const { id } = ctx.params;
-  await model.deleteOne(id);
+  const deleteResult = await model.deleteOne(id);
+
+  if (!deleteResult.deletedCount) {
+    throw new ServerError('Booking no found', 404);
+  }
 
   ctx.status = 201;
   ctx.body = { id };

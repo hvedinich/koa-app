@@ -5,6 +5,10 @@ const api = require('./api');
 
 const server = new Koa();
 
-server.use(cors()).use(bodyParser()).use(api.routes()).use(api.allowedMethods());
+server
+  .use(cors())
+  .use(bodyParser())
+  .use(api.routes())
+  .use(api.allowedMethods());
 
 module.exports = server;

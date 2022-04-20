@@ -26,7 +26,7 @@ const init = () => {
     mongoose.disconnect();
   });
   db.once('open', () => {
-    console.log(`Mongo conected to ${url}`);
+    console.log(`Mongo conected`);
   });
 
   return mongoose;

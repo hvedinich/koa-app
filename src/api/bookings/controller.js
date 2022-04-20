@@ -32,12 +32,15 @@ const createOne = async ctx => {
 
   validateCreateBookingInput(newBooking);
 
-  const config = await configModel.read({ id: DEFAULT_CONFIG });
+  const [config, isBookingExists] = await Promise.all([
+    configModel.read({ id: DEFAULT_CONFIG }),
+    model.read({ date, timeSlot, tableId }),
+  ]);
+
   if (timeSlot < config.openFrom || timeSlot >= config.openTo) {
     throw new ServerError('Invalid time slot', 400);
   }
 
-  const isBookingExists = await model.read({ date, timeSlot, tableId });
   if (isBookingExists) {
     throw new ServerError('Table has already been booked', 400);
   }
@@ -49,13 +52,13 @@ const createOne = async ctx => {
 };
 
 const updateOne = async ctx => {
+  validateUpdateBookingInput(ctx.request.body);
   const { id } = ctx.params;
+
   const booking = await model.read({ id });
   if (!booking) {
     throw new ServerError('Booking no found', 404);
   }
-
-  validateUpdateBookingInput(ctx.request.body);
 
   const newBooking = { id, ...ctx.request.body };
   const updatedBooking = await model.findOneAndUpdate(newBooking);
@@ -66,7 +69,12 @@ const updateOne = async ctx => {
 
 const deleteOne = async ctx => {
   const { id } = ctx.params;
-  await model.deleteOne(id);
+  const deleteResult = await model.deleteOne(id);
+
+  if (deleteResult.acknowledged !== true) {
+    throw new ServerError('Booking no found', 404);
+  }
+
   ctx.status = 201;
   ctx.body = { id };
 };
