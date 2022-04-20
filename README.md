@@ -20,6 +20,16 @@ Command to run tests
 
 `npm start`
 
+### Docker run
+
+build container
+
+`docker build .`
+
+run container
+
+`docker run --env DB_URL=<DB_URL> -p 3000:8080 <IMAGE>`
+
 ### endpoints
 
 `http://localhost:3300/api/bookings` GET, POST
